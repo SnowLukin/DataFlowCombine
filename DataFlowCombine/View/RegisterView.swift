@@ -13,6 +13,8 @@ struct RegisterView: View {
     
     @State private var username = ""
     
+    @FocusState private var focusedField: Bool
+    
     private var isValid: Bool {
         username.count >= 3
     }
@@ -35,6 +37,9 @@ struct RegisterView: View {
                         alignment: .center
                     )
                     .multilineTextAlignment(.center)
+                    // remove suggestions for keyboard
+                    .disableAutocorrection(true)
+                    .keyboardType(.alphabet)
                 Text("Characters left to login: \(isValid ? 0 : 3 - username.count)")
                     .font(.title3)
                     .foregroundColor(Color("lightGray"))
@@ -47,13 +52,24 @@ struct RegisterView: View {
                     .opacity(isValid ? 1 : 0.4)
                 Spacer()
             }
+            .focused($focusedField)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("Done") {
+                        focusedField = false
+                    }
+                }
+            }
         }
     }
 }
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterView()
+        ZStack {
+            RegisterView()
+        }
     }
 }
 
