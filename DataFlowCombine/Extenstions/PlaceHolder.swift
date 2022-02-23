@@ -8,7 +8,7 @@
 import SwiftUI
 
 // Custom placeholder
-// Cmon, swiftui, why so complicated...
+// Cmon, Tim Cook, why i have to do this myself???
 struct PlaceHolder<T: View>: ViewModifier {
     var placeHolder: T
     var show: Bool

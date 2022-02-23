@@ -5,17 +5,16 @@
 //  Created by Snow Lukin on 23.02.2022.
 //
 
-import Foundation
 import Combine
 import SwiftUI
 
 class TimeCounterViewModel: ObservableObject {
+    
     let objectWillChange = PassthroughSubject<TimeCounterViewModel, Never>()
     
     var counter = 3
     var timer: Timer?
     var buttonTitle = "Start"
-    
     var isWaiting = false
     
     func startTimer() {

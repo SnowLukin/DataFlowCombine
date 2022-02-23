@@ -35,7 +35,7 @@ struct RegisterView: View {
                         alignment: .center
                     )
                     .multilineTextAlignment(.center)
-                Text("Username must contain at least 3 characters.")
+                Text("Characters left to login: \(isValid ? 0 : 3 - username.count)")
                     .font(.title3)
                     .foregroundColor(Color("lightGray"))
                     .multilineTextAlignment(.center)
