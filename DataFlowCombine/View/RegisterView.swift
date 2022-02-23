@@ -75,9 +75,7 @@ struct RegisterView_Previews: PreviewProvider {
 
 extension RegisterView {
     private func registerUser() {
-        if !username.isEmpty {
-            user.username = username
-            user.isRegistered.toggle()
-        }
+        user.username = username
+        user.isRegistered.toggle()
     }
 }
