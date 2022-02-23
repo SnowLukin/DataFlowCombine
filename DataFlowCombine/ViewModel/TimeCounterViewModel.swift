@@ -7,13 +7,16 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
-class TimeCounter: ObservableObject {
-    let objectWillChange = PassthroughSubject<TimeCounter, Never>()
+class TimeCounterViewModel: ObservableObject {
+    let objectWillChange = PassthroughSubject<TimeCounterViewModel, Never>()
     
     var counter = 3
     var timer: Timer?
     var buttonTitle = "Start"
+    
+    var isWaiting = false
     
     func startTimer() {
         if counter > 0 {
@@ -34,6 +37,7 @@ class TimeCounter: ObservableObject {
         } else {
             killTimer()
             buttonTitle = "Reset"
+            isWaiting = false
         }
         
         objectWillChange.send(self)
@@ -50,6 +54,7 @@ class TimeCounter: ObservableObject {
             buttonTitle = "Start"
         } else {
             buttonTitle = "Wait..."
+            isWaiting = true
         }
         
         objectWillChange.send(self)

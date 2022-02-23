@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct StarterView: View {
-    @EnvironmentObject var user: UserManager
+    @EnvironmentObject var user: UserViewModel
     
     var body: some View {
         Group {
-            if user.isRegister {
+            if user.isRegistered {
                 MainView()
             } else {
                 RegisterView()
@@ -24,6 +24,6 @@ struct StarterView: View {
 struct StarterView_Previews: PreviewProvider {
     static var previews: some View {
         StarterView()
-            .environmentObject(UserManager())
+            .environmentObject(UserViewModel())
     }
 }

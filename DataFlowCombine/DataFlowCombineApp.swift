@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct DataFlowCombineApp: App {
-    @StateObject private var userManager = UserManager()
+    @StateObject private var userManager = UserViewModel()
     
     var body: some Scene {
         WindowGroup {
