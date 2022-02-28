@@ -2,13 +2,19 @@
 //  UserManager.swift
 //  DataFlowCombine
 //
-//  Created by Snow Lukin on 23.02.2022.
+//  Created by Snow Lukin on 24.02.2022.
 //
 
-import Combine
 import SwiftUI
 
 class UserViewModel: ObservableObject {
-    @AppStorage("username") var username = ""
-    @AppStorage("isRegistered") var isRegistered = false
+    
+    @Published var user = User()
+    
+    init() {}
+    
+    init(user: User) {
+        self.user = user
+    }
 }
+

@@ -9,14 +9,12 @@ import SwiftUI
 
 struct RegisterView: View {
     
-    @EnvironmentObject var user: UserViewModel
-    
-    @State private var username = ""
+    @EnvironmentObject var userViewModel: UserViewModel
     
     @FocusState private var focusedField: Bool
     
     private var isValid: Bool {
-        username.count >= 3
+        userViewModel.user.username.count >= 3
     }
     
     var body: some View {
@@ -27,29 +25,10 @@ struct RegisterView: View {
             VStack {
                 Spacer()
                 Spacer()
-                TextField("", text: $username)
-                    .font(.title2)
-                    .foregroundColor(.orange)
-                    .placeHolder(
-                        Text("Enter your name...").font(.title2),
-                        show: username.isEmpty,
-                        color: Color("lightGray"),
-                        alignment: .center
-                    )
-                    .multilineTextAlignment(.center)
-                    // remove suggestions for keyboard
-                    .disableAutocorrection(true)
-                    .keyboardType(.alphabet)
-                Text("Characters left to login: \(isValid ? 0 : 3 - username.count)")
-                    .font(.title3)
-                    .foregroundColor(Color("lightGray"))
-                    .multilineTextAlignment(.center)
+                textField
+                charToLoginText
                 Spacer()
-                CustomButtonView(text: "LogIn", strokeColor: .blue) {
-                    registerUser()
-                }.padding()
-                    .disabled(!isValid)
-                    .opacity(isValid ? 1 : 0.4)
+                loginButton
                 Spacer()
             }
             .focused($focusedField)
@@ -74,8 +53,37 @@ struct RegisterView_Previews: PreviewProvider {
 }
 
 extension RegisterView {
-    private func registerUser() {
-        user.username = username
-        user.isRegistered.toggle()
+    
+    private var textField: some View {
+        TextField("", text: $userViewModel.user.username)
+            .font(.title2)
+            .foregroundColor(.orange)
+            .placeHolder(
+                Text("Enter your name...").font(.title2),
+                show: userViewModel.user.username.isEmpty,
+                color: Color("lightGray"),
+                alignment: .center
+            )
+            .multilineTextAlignment(.center)
+            // remove suggestions for keyboard
+            .disableAutocorrection(true)
+            .keyboardType(.alphabet)
     }
+    
+    private var charToLoginText: some View {
+        Text("Characters left to login: \(isValid ? 0 : 3 - userViewModel.user.username.count)")
+            .font(.title3)
+            .foregroundColor(Color("lightGray"))
+            .multilineTextAlignment(.center)
+    }
+    
+    private var loginButton: some View {
+        CustomButtonView(text: "LogIn", strokeColor: .blue) {
+            userViewModel.user.isRegistered.toggle()
+            DataManager.shared.saveUser(user: userViewModel.user)
+        }.padding()
+            .disabled(!isValid)
+            .opacity(isValid ? 1 : 0.4)
+    }
+    
 }

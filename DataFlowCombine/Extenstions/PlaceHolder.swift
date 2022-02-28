@@ -36,11 +36,9 @@ extension View {
  MARK: Usage
  
  TextField("", text: $name)
-     .foregroundColor(.orange)
      .placeHolder(
          Text("Enter your name..."),
          show: name.isEmpty,
          color: Color("lightGray")
      )
-     .multilineTextAlignment(.center)
 */

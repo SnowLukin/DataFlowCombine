@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var user: UserViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     @StateObject private var timer = TimeCounterViewModel()
     
     var body: some View {
@@ -37,7 +37,7 @@ struct MainView_Previews: PreviewProvider {
 
 extension MainView {
     private var greetingText: some View {
-        Text("Hi, \(user.username)")
+        Text("Hi, \(userViewModel.user.username)")
             .font(.largeTitle)
             .fontWeight(.semibold)
             .foregroundColor(.orange)
@@ -57,7 +57,8 @@ extension MainView {
             }
             .disabled(timer.isWaiting) // to avoid bugs
             CustomButtonView(text: "LogOut", strokeColor: .blue) {
-                user.isRegistered.toggle()
+                userViewModel.user.isRegistered.toggle()
+                DataManager.shared.clearData(userManager: userViewModel)
             }
         }
     }

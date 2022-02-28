@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct DataFlowCombineApp: App {
-    @StateObject private var userManager = UserViewModel()
+    private let user = DataManager.shared.loadData()
     
     var body: some Scene {
         WindowGroup {
             StarterView()
-                .environmentObject(userManager)
+                .environmentObject(UserViewModel(user: user))
         }
     }
 }
